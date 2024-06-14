@@ -4,16 +4,8 @@ import reactImage3 from "./assets/jsx-ui.png";
 import reactImage4 from "./assets/react-core-concepts.png";
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header.jsx";
-
-function Core({ ...props }) {
-  return (
-    <li>
-      <img src={props.image} alt={props.title} />
-      <h3>{props.title}</h3>
-      <p>{props.description} </p>
-    </li>
-  );
-}
+import Core from "./components/Core.jsx";
+import TabButton from "./components/TabButton.jsx";
 
 function App() {
   return (
@@ -27,6 +19,14 @@ function App() {
               return <Core {...e} />;
             })}
           </ul>
+        </section>
+        <section>
+          <h2>Examples</h2>
+          <menu>
+            <TabButton>First Button</TabButton>
+            <TabButton>Second Button</TabButton>
+            <TabButton>Third Button</TabButton>
+          </menu>
         </section>
       </main>
     </div>
