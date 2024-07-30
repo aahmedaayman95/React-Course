@@ -1,61 +1,35 @@
-import { useState } from "react";
-
-const INITIALBOARD = [
+const initialGameBoard = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
 
-const test01 = (
-  <ol>
-    <li>
-      <ol>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ol>
-    </li>
-    <li>
-      <ol>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ol>
-    </li>
-    <li>
-      <ol>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ol>
-    </li>
-  </ol>
-);
+export default function GameBoard({ onSelectSquare, board }) {
+  console.log("Game Board Is Renderings");
 
-function GameBoard({ activePlayerSymbol, changePlayer }) {
-  console.log("Game Board Is rendering");
-  const [gameBoard, setGameBoard] = useState(INITIALBOARD);
-  console.log(gameBoard);
-  function handleClick(rowIndex, colIndex) {
-    console.log(rowIndex, colIndex);
-    setGameBoard((prevGameBoard) => {
-      const updatedGameBoard = [
-        ...prevGameBoard.map((innerArray) => [...innerArray]),
-      ];
-      updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol;
-      console.log(updatedGameBoard);
-      return updatedGameBoard;
-    });
-    changePlayer();
-  }
+  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+  // function handleSelectSquare(rowIndex, colIndex) {
+  //   setGameBoard((prevGameBoard) => {
+  //     const updatedBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
+  //     updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+  //     return updatedBoard;
+  //   });
+
+  //   onSelectSquare();
+  // }
+
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleClick(rowIndex, colIndex)}>
+                <button
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
@@ -66,5 +40,3 @@ function GameBoard({ activePlayerSymbol, changePlayer }) {
     </ol>
   );
 }
-
-export default GameBoard;

@@ -1,6 +1,7 @@
 import Player from "./Player";
 
 export default function Players({ currentPlayer }) {
+  console.log("Players Are Rendering");
   return (
     <ol id="players" className="highlight-player">
       <Player

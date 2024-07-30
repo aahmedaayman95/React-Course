@@ -1,23 +1,21 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
-  console.log("Player is rendering");
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
+  console.log("Player Is Rendering");
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
   function handleEditClick() {
-    // if (!isEditing) setIsEditing(true);
-    // else setIsEditing(false);
-    // isEditing ? setIsEditing(false) : setIsEditing(true);
+    setIsEditing((editing) => !editing);
 
-    // setIsEditing(isEditing? false : true);
-
-    // setIsEditing(!isEditing);
-    // setIsEditing(!isEditing);
-
-    setIsEditing((Hamada) => !Hamada);
-    // setIsEditing((Hamada) => !Hamada);
-    console.log("Hi");
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
   function handleChange(event) {
     console.log(event);
