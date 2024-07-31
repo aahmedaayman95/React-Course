@@ -17,6 +17,7 @@ const PLAYERS = {
   O: "Player 2",
 };
 
+console.log("Outside functions are called");
 function deriveActivePlayer(gameTurns) {
   let currentPlayer = "X";
 
@@ -27,13 +28,37 @@ function deriveActivePlayer(gameTurns) {
   return currentPlayer;
 }
 
+function deriveWinner(gameBoard, players) {
+  let winner;
+
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = players[firstSquareSymbol];
+    }
+  }
+  return winner;
+}
+
 function App() {
   console.log("App Is Rendering");
+  //this state used in many components instead of using same data in many states across our project
   const [gameTurns, setGameTurns] = useState([]);
   const [players, setPlayers] = useState(PLAYERS);
   //const [activePlayer, setActivePlayer] = useState("X");
   const activePlayer = deriveActivePlayer(gameTurns);
 
+  //how to deep copy 2D Array
   let gameBoard = [...initialGameBoard.map((array) => [...array])];
 
   for (const turn of gameTurns) {
