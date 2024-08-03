@@ -2,7 +2,16 @@ import Results from "./components/Results";
 import UserInput from "./components/UserInput";
 import Header from "./components/Header";
 import { useState } from "react";
-import { calculateInvestmentResults } from "./util/investment";
+import { calculateInvestmentResults, formatter } from "./util/investment";
+import UserInputNew from "./components/UserInputNew";
+import ResultsNew from "./components/ResultsNew.jsx";
+
+const INITIAL_INPUT = {
+  initialInvestment: 10000,
+  annualInvestment: 1200,
+  expectedReturn: 5,
+  duration: 3,
+};
 
 function App() {
   console.log("App Is Rendering");
@@ -11,8 +20,11 @@ function App() {
   const [expectedReturn, setExpectedReturn] = useState(3000);
   const [duration, setDuration] = useState(2);
   const [data, setData] = useState([]);
+  const [inputData, setInputData] = useState(INITIAL_INPUT);
   console.log("Data from App");
   console.log(data);
+
+  const inputIsValid = inputData.duration >= 1;
 
   function updateDataApp({
     initialInvestment,
@@ -52,14 +64,14 @@ function App() {
 
   function handleinitialInvestmentChangeApp(event) {
     console.log("Handle Change Inside App Is Called");
-    setInitialInvestment(event.target.value);
+    setInitialInvestment(+event.target.value);
     console.log("Es7aaaaaaaaaaa");
     console.log(event.target.value);
     console.log(annualInvestment);
     console.log(expectedReturn);
     console.log(duration);
     updateDataApp({
-      initialInvestment: event.target.value,
+      initialInvestment: +event.target.value,
       annualInvestment,
       expectedReturn,
       duration,
@@ -67,32 +79,39 @@ function App() {
   }
   function handleannualInvestmentChangeApp(event) {
     console.log("Handle Change Inside App Is Called");
-    setAnnualInvestment(event.target.value);
+    setAnnualInvestment(+event.target.value);
     updateDataApp({
       initialInvestment,
-      annualInvestment: event.target.value,
+      annualInvestment: +event.target.value,
       expectedReturn,
       duration,
     });
   }
   function handleexpectedReturnChangeApp(event) {
     console.log("Handle Change Inside App Is Called");
-    setExpectedReturn(event.target.value);
+    setExpectedReturn(+event.target.value);
     updateDataApp({
       initialInvestment,
       annualInvestment,
-      expectedReturn: event.target.value,
+      expectedReturn: +event.target.value,
       duration,
     });
   }
   function handledurationChangeApp(event) {
     console.log("Handle Change Inside App Is Called");
-    setDuration(event.target.value);
+    setDuration(+event.target.value);
     updateDataApp({
       initialInvestment,
       annualInvestment,
       expectedReturn,
-      duration: event.target.value,
+      duration: +event.target.value,
+    });
+  }
+
+  function handleChange(identifier, newValue) {
+    setInputData((oldValue) => {
+      const updatedValue = { ...oldValue, [identifier]: newValue };
+      return updatedValue;
     });
   }
   return (
@@ -108,7 +127,13 @@ function App() {
         handleexpectedReturnChange={handleexpectedReturnChangeApp}
         handledurationChange={handledurationChangeApp}
       ></UserInput>
+      <UserInputNew
+        input={inputData}
+        handleChangeValue={handleChange}
+      ></UserInputNew>
       <Results data={data}></Results>
+      {inputIsValid && <ResultsNew data={inputData}></ResultsNew>}
+      {!inputIsValid && <p className="center">Please Enter A Valid Input</p>}
     </>
   );
 }
