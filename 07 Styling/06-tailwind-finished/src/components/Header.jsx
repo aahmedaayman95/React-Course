@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png';
+import logo from "../assets/logo.png";
 
 export default function Header() {
   return (
@@ -6,11 +6,12 @@ export default function Header() {
       <img
         src={logo}
         alt="A canvas"
-        className="object-contain mb-8 w-44 h-44"
+        className="object-contain mb-8 w-44 h-44 "
       />
       <h1 className="text-xl font-semibold tracking-widest text-center uppercase md:text-4xl text-amber-800 font-title">
         ReactArt
       </h1>
+      <h2 className="">Hamada</h2>
       <p className="text-stone-500">A community of artists and art-lovers.</p>
     </header>
   );
